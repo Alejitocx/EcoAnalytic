@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/NavBar.css';
-import logo from '../images/logo.png';
+import logo from '../images/logo2.png';
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
 
       <div className="navbar-links-container">
         <div className={`navbar-links ${isMobileMenuOpen ? 'open' : ''}`}> {/* <-- AQUÍ ESTA EL CAMBIO */}
-          <Link to="/" className="navbar-link">Home</Link>
+          <Link to="/energia" className="navbar-link">Energia Eolica</Link>
           <Link to="/datos-historicos" className="navbar-link">Datos Históricos</Link>
           <Link to="/dashboard" className="navbar-link">Dashboard</Link>
         </div>

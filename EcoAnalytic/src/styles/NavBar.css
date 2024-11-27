@@ -1,11 +1,10 @@
 /* Estilo general del navbar */
 .navbar {
-  background-color: #a7d1ab; /* Verde pastel */
+  background-color: #39832e; 
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -37,7 +36,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #a7d1ab;
+  background-color: #39832e;
   padding: 1rem;
   border-radius: 10px;
   width: 100%;
@@ -46,7 +45,7 @@
 }
 
 .navbar-link {
-  color: #333;
+  color: #ffffff;
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: 500;
