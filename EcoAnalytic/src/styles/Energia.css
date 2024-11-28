@@ -1,0 +1,156 @@
+/* Estilos globales */
+.home {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Encabezado */
+  .home-header {
+    background-color: #39832e; 
+    color: #ffffff;
+    text-align: center;
+    padding: 5rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .home-header h1 {
+    font-size: 3.5rem;
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .home-header .subtitulo {
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin-top: 1rem;
+    color: #f0f0f0;
+  }
+  
+  /* Sección de cartas - Alineadas horizontalmente */
+  .home-cards {
+    display: flex;
+    flex-wrap: wrap;  /* Asegura que las cartas se ajusten */
+    justify-content: space-between;
+    gap: 2rem;
+    margin: 2rem;
+  }
+  
+  .home-card {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 30%; /* Ajusta el ancho de las cartas */
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .home-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .home-card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .home-card-content {
+    padding: 1.5rem;
+  }
+  
+  .home-card-content h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .home-card-content p {
+    font-size: 1.1rem;
+    color: #666;
+  }
+  
+  
+    .imagen{
+      height: 400px;
+      width: 480px;
+      object-fit: contain; 
+      padding-left: 15px;
+      padding-top: 15px;
+      margin-left: 15px;
+      display: flex;
+   }
+  
+   .texto{
+    object-fit: contain; 
+    text-align: right;
+    font-size: 4rem;
+    font-weight: 300;
+    font-family: 'Times New Roman';
+    display: flex;
+   }
+  
+  /* Sección resumen */
+  .home-summary {
+    display: flex; /* Activa Flexbox para alinear elementos */
+    align-items: center; /* Asegura que los elementos estén centrados verticalmente */
+    justify-content: space-between; /* Deja espacio entre los elementos */
+    text-align: left; /* Alinea el texto a la izquierda */
+    background-color: #39832e;
+    color: white;
+    padding: 2rem;
+    margin: 3rem 0;
+    font-size: 1.3rem;
+    font-weight: 300;
+    border-radius: 8px;
+    gap: 1rem; /* Espaciado entre los elementos */
+  }
+  
+  /* Imagen */
+  .home-summary .imagen img {
+    max-width: 100%; /* Asegura que la imagen no desborde */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-radius: 8px;
+    object-fit: cover; /* Ajusta cómo la imagen se recorta */
+  }
+  
+  /* Texto */
+  .home-summary .texto {
+    flex: 1; /* Ocupa el espacio restante disponible */
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1.6;
+  }
+  
+  
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    .home-cards {
+      flex-direction: column; /* Apilar en pantallas pequeñas */
+      align-items: center;
+    }
+  
+    .home-card {
+      width: 80%; /* Hacer las cartas más grandes en pantallas pequeñas */
+    }
+  
+    .home-header h1 {
+      font-size: 2.5rem;
+    }
+  
+    .home-header .subtitulo {
+      font-size: 1.1rem;
+    }
+  
+    .home-summary {
+      font-size: 1.1rem;
+    }
+  }
+  
