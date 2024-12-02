@@ -1,42 +1,106 @@
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 1rem;
+  width: 100%;
 }
 
-.controls {
+.selectors-container {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
+  justify-content: center; /* Centra horizontalmente el contenedor de selectores */
+  margin-bottom: 2rem;
 }
 
-.controls label {
+
+.selectors {
+  display: flex;
+  gap: 1rem;
+  max-width: 600px; /* Limita el ancho máximo de los selectores */
+  margin: 0 auto; /* Centra horizontalmente los selectores */
+}
+
+.selectors label {
   margin-right: 0.5rem;
 }
 
-.controls select {
-  padding: 0.5rem;
-  font-size: 1rem;
+.selectors select {
+  flex-grow: 1;
 }
 
-.chart-container {
+.charts-section {
+  margin-bottom: 2rem;
+}
+
+.charts-section h3 {
+  text-align: center; /* Centra los subtítulos de las secciones */
+  margin-bottom: 1rem;
+}
+
+h2 { /* Centra el título principal */
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.chart-group {
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  flex-basis: 48%;
+  min-width: 300px;
+  display: flex; /* Habilitamos flexbox en la tarjeta */
+  flex-direction: column; /* Las gráficas se apilan verticalmente */
 }
 
-.chart {
-  width: 100%;
-  max-width: 600px;
-  height: 400px;
-  margin: 1rem 0;
+.card-body {
+  padding: 1rem;
+  flex-grow: 1; /* Permite que el contenido se expanda para ocupar el espacio disponible */
 }
 
+.chart-bar { /* Clase para el contenedor de la gráfica de barras */
+  height: 100%; /* Ocupa toda la altura disponible */
+}
+
+.chart-pie { /* Clase para el contenedor de la gráfica de pie */
+  max-width: 300px; /* Máximo ancho para la gráfica de pie */
+  margin: 0 auto; /* Centra la gráfica de pie horizontalmente */
+}
+
+
+/* Responsive design */
 @media (max-width: 768px) {
-  .chart {
-    max-width: 100%;
-    height: auto;
+  /* ... (CSS responsive anterior) ... */
+  .card {
+    flex-basis: 100%;
+    min-width: 100%;
   }
+
+  .chart-pie {
+    max-width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+    margin: 0 auto; /* Centra la gráfica de pie horizontalmente */
+  }
+}
+
+
+.years-container {
+  margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+  text-align: center; /* Centra el texto */
+}
+
+.years-container ul {
+  list-style: none; /* Elimina los marcadores de lista */
+  padding: 0; /* Elimina el padding de la lista */
+  display: inline-flex; /* Para que los años aparezcan en una sola línea */
+  gap: 10px; /* Espacio entre los años */
+}
+
+.years-container li {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }

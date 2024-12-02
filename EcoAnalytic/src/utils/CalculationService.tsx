@@ -22,6 +22,10 @@ export interface EnergyData {
   export const filterData = (data: EnergyData[], region: string, year: number): EnergyData[] => {
     return data.filter((item) => item.Entity === region && toNumber(item.Year) === year);
   };
+
+  export const filterDataLi = (data: EnergyData[], region: string): EnergyData[] => {
+    return data.filter((item) => item.Entity === region); // Filtra por región sin importar el año
+  };
   
   // Obtener las regiones únicas
   export const getUniqueRegions = (data: EnergyData[]): string[] => {
@@ -63,43 +67,55 @@ export interface EnergyData {
     return [windEnergy, solarEnergy, hydroEnergy];
   };
   
-  // Gráfico de líneas
-  export const getInstalledCapacityForLineChart = (data: EnergyData[]): {
-    labels: number[];
-    wind: number[];
-    solar: number[];
-    geothermal: number[];
-  } => {
-    const years = getUniqueValues(data, 'Year') as number[];
-    return {
-      labels: years,
-      wind: years.map((year) =>
-        toNumber(data.find((item) => toNumber(item.Year) === year)?.['Wind Capacity'])
-      ),
-      solar: years.map((year) =>
-        toNumber(data.find((item) => toNumber(item.Year) === year)?.['Solar Capacity'])
-      ),
-      geothermal: years.map((year) =>
-        toNumber(data.find((item) => toNumber(item.Year) === year)?.['Geothermal Capacity'])
-      ),
-    };
+ // Gráfico de líneas (modificado)
+export const getInstalledCapacityForLineChart = (data: EnergyData[]): {
+  labels: string []; // Labels ahora son strings (regiones)
+  wind: number[];
+  solar: number[];
+  geothermal: number[];
+} => {
+  // Obtenemos las regiones únicas
+  const regions = getUniqueValues(data, 'Entity') as string[];
+
+  // Creamos las series de datos para cada energía, agrupando por región
+  const wind = regions.map((region) => {
+    const item = data.find((d) => d.Entity === region);
+    return item ? toNumber(item['Wind Capacity']) || 0 : 0;
+  });
+
+  const solar = regions.map((region) => {
+    const item = data.find((d) => d.Entity === region);
+    return item ? toNumber(item['Solar Capacity']) || 0 : 0;
+  });
+
+  const geothermal = regions.map((region) => {
+    const item = data.find((d) => d.Entity === region);
+    return item ? toNumber(item['Geothermal Capacity']) || 0 : 0;
+  });
+
+  return {
+    labels: regions,
+    wind,
+    solar,
+    geothermal,
   };
-  
-  // Gráfico de área
-  export const getEnergyConsumptionComparisonForAreaChart = (data: EnergyData[]): {
-    labels: number[];
-    renewable: number[];
-    conventional: number[];
-  } => {
-    const years = getUniqueValues(data, 'Year') as number[];
-    return {
-      labels: years,
-      renewable: years.map((year) =>
-        toNumber(data.find((item) => toNumber(item.Year) === year)?.['Geo Biomass Other - TWh'])
-      ),
-      conventional: years.map((year) =>
-        toNumber(data.find((item) => toNumber(item.Year) === year)?.['Conventional Energy Consumption (TWh)'])
-      ),
-    };
+};
+
+
+// Gráfico de área (modificado)
+export const getEnergyConsumptionComparisonForAreaChart = (data: EnergyData[]): {
+  labels: string[]; // Labels ahora son strings (regiones)
+  renewable: number[];
+  conventional: number[];
+} => {
+  const regions = getUniqueValues(data, 'Entity') as string[];
+  return {
+    labels: regions,
+    renewable: regions.map((region) =>
+      toNumber(data.find((item) => item.Entity === region)?.['Geo Biomass Other - TWh'])
+    ),
+    conventional: regions.map((region) =>
+      toNumber(data.find((item) => item.Entity === region)?.['Conventional Energy Consumption (TWh)'])
+    ),
   };
-  
+};
