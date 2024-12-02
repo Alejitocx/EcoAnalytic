@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Bar, Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   BarElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend,
@@ -14,18 +15,20 @@ import {
   getUniqueRegions,
   getUniqueYears,
   filterData,
-  getProductionDataForBarChart
+  getProductionDataForBarChart,
+  getRenewablesShareForPieChart,
 } from '../utils/CalculationService'; // Ajusta la ruta según tu estructura
 import { getCsvDataForChart } from '../utils/csvService';
-import '../styles/Dashboard.css'
+import '../styles/Dashboard.css';
 
 // Registrar escalas y elementos en Chart.js
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
 const Dashboard: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState('');
   const [selectedYear, setSelectedYear] = useState(0);
-  const [chartData, setChartData] = useState<number[]>([]);
+  const [barChartData, setBarChartData] = useState<number[]>([]);
+  const [pieChartData, setPieChartData] = useState<number[]>([]);
   const [regions, setRegions] = useState<string[]>([]);
   const [years, setYears] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
@@ -36,43 +39,56 @@ const Dashboard: React.FC = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        setError('');
-        const data = await getCsvDataForChart('barChart'); // Asegúrate de que 'barChart' sea correcto
+        const data = await getCsvDataForChart('barChart'); // Ajusta la ruta del archivo CSV
         const uniqueRegions = getUniqueRegions(data as EnergyData[]);
         const uniqueYears = getUniqueYears(data as EnergyData[]);
         setRegions(uniqueRegions);
         setYears(uniqueYears);
-        setSelectedYear(uniqueYears[0] || 0); // Establece un valor por defecto
-        setSelectedRegion(uniqueRegions[0] || ''); // Establece un valor por defecto
+        setSelectedYear(uniqueYears[0] || 0);
+        setSelectedRegion(uniqueRegions[0] || '');
       } catch (err: any) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
-  // Actualizar datos del gráfico cuando cambian región o año
+  // Actualizar datos del gráfico de barras
   useEffect(() => {
-    const updateChartData = async () => {
+    const updateBarChartData = async () => {
       if (selectedRegion && selectedYear) {
         try {
           const data = await getCsvDataForChart('barChart');
           const filteredData = filterData(data as EnergyData[], selectedRegion, selectedYear);
           const productionData = getProductionDataForBarChart(filteredData);
-          setChartData(productionData);
+          setBarChartData(productionData);
         } catch (err: any) {
           setError(err.message);
         }
       }
     };
-
-    updateChartData();
+    updateBarChartData();
   }, [selectedRegion, selectedYear]);
 
-  // Renderizar contenido
+  // Actualizar datos del gráfico de pastel
+  useEffect(() => {
+    const updatePieChartData = async () => {
+      if (selectedRegion && selectedYear) {
+        try {
+          const data = await getCsvDataForChart('pieChart'); // Ajusta la ruta del archivo CSV
+          const filteredData = filterData(data as EnergyData[], selectedRegion, selectedYear);
+          const renewablesShareData = getRenewablesShareForPieChart(filteredData);
+          setPieChartData(renewablesShareData);
+        } catch (err: any) {
+          setError(err.message);
+        }
+      }
+    };
+    updatePieChartData();
+  }, [selectedRegion, selectedYear]);
+
   if (loading) {
     return <p>Cargando...</p>;
   }
@@ -82,32 +98,22 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div>
-      <h2>Gráfico de Barras - Energías Renovables</h2>
+    <div className="dashboard-container">
+      <h2>Dashboard de Energías Renovables</h2>
 
-      <div>
+      <div className="controls">
         <label htmlFor="region">Región:</label>
-        <select
-          id="region"
-          value={selectedRegion}
-          onChange={(e) => setSelectedRegion(e.target.value)}
-        >
-          <option value="">Selecciona un país</option>
+        <select id="region" value={selectedRegion} onChange={(e) => setSelectedRegion(e.target.value)}>
+          <option value="">Selecciona una región</option>
           {regions.map((region) => (
             <option key={region} value={region}>
               {region}
             </option>
           ))}
         </select>
-      </div>
 
-      <div>
         <label htmlFor="year">Año:</label>
-        <select
-          id="year"
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))}
-        >
+        <select id="year" value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))}>
           <option value="">Selecciona un año</option>
           {years.map((year) => (
             <option key={year} value={year}>
@@ -117,32 +123,46 @@ const Dashboard: React.FC = () => {
         </select>
       </div>
 
-      {chartData.length > 0 ? (
-        <Bar
-          data={{
-            labels: ['Viento', 'Solar', 'Hidro', 'Biocombustibles', 'Geotérmica'],
-            datasets: [
-              {
-                label: `Producción de Energía en ${selectedRegion} (${selectedYear})`,
-                data: chartData,
-                backgroundColor: [
-                  'rgba(54, 162, 235, 0.6)',
-                  'rgba(255, 206, 86, 0.6)',
-                  'rgba(75, 192, 192, 0.6)',
-                  'rgba(153, 102, 255, 0.6)',
-                  'rgba(255, 99, 132, 0.6)',
+      <div className="chart-container">
+        <div className="chart">
+          {barChartData.length > 0 ? (
+            <Bar
+              data={{
+                labels: ['Viento', 'Solar', 'Hidro', 'Biocombustibles', 'Geotérmica'],
+                datasets: [
+                  {
+                    label: `Producción de Energía en ${selectedRegion} (${selectedYear})`,
+                    data: barChartData,
+                    backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(153, 102, 255, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+                  },
                 ],
-              },
-            ],
-          }}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false,
-          }}
-        />
-      ) : (
-        <p>No hay datos para mostrar.</p>
-      )}
+              }}
+              options={{ responsive: true, maintainAspectRatio: false }}
+            />
+          ) : (
+            <p>No hay datos para mostrar.</p>
+          )}
+        </div>
+
+        <div className="chart">
+          {pieChartData.length > 0 ? (
+            <Pie
+              data={{
+                labels: ['Energía Eólica', 'Energía Solar', 'Energía Hidroeléctrica'],
+                datasets: [
+                  {
+                    data: pieChartData,
+                    backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(75, 192, 192, 0.6)'],
+                  },
+                ],
+              }}
+              options={{ responsive: true, maintainAspectRatio: false }}
+            />
+          ) : (
+            <p>No hay datos para mostrar.</p>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
