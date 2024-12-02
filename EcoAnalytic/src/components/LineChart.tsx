@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
-import { getInstalledCapacityTrend } from '../services/csvService';
+import { getInstalledCapacityTrend } from '../utils/csvService';
 
 // Registrar componentes necesarios de Chart.js
 Chart.register(...registerables);
