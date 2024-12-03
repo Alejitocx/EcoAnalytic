@@ -37,7 +37,7 @@ export interface EnergyData {
     return getUniqueValues(data, 'Year') as number[];
   };
   
-  // Métodos para gráficos
+
   
   // Gráfico de barras
   export const getProductionDataForBarChart = (data: EnergyData[]): number[] => {
@@ -67,14 +67,19 @@ export interface EnergyData {
     return [windEnergy, solarEnergy, hydroEnergy];
   };
 
-  
-  export const getInstalledCapacityForLineChart = (data: EnergyData[]): {
+  export const getInstalledCapacityForLineChart = (
+    data: EnergyData[],
+    region: string
+  ): {
     labels: number[]; // Años
     wind: number[];
     solar: number[];
     geothermal: number[];
   } => {
-    const capacityMap = data.reduce((acc, item) => {
+    // Filtrar datos por región
+    const filteredData = data.filter((item) => item.Entity === region);
+  
+    const capacityMap = filteredData.reduce((acc, item) => {
       const year = toNumber(item.Year);
       if (!acc[year]) {
         acc[year] = { wind: 0, solar: 0, geothermal: 0 };
@@ -93,18 +98,25 @@ export interface EnergyData {
     return { labels, wind, solar, geothermal };
   };
   
-  export const getEnergyConsumptionComparisonForAreaChart = (data: EnergyData[]): {
+  export const getEnergyConsumptionComparisonForAreaChart = (
+    data: EnergyData[],
+    region: string
+  ): {
     labels: number[]; // Años
     renewable: number[];
     conventional: number[];
   } => {
-    const consumptionMap = data.reduce((acc, item) => {
+    // Filtrar datos por región
+    const filteredData = data.filter((item) => item.Entity === region);
+  
+    const consumptionMap = filteredData.reduce((acc, item) => {
       const year = toNumber(item.Year);
       if (!acc[year]) {
         acc[year] = { renewable: 0, conventional: 0 };
       }
       if (item['Geo Biomass Other - TWh']) acc[year].renewable += toNumber(item['Geo Biomass Other - TWh']);
-      if (item['Conventional Energy Consumption (TWh)']) acc[year].conventional += toNumber(item['Conventional Energy Consumption (TWh)']);
+      if (item['Conventional Energy Consumption (TWh)'])
+        acc[year].conventional += toNumber(item['Conventional Energy Consumption (TWh)']);
       return acc;
     }, {} as Record<number, { renewable: number; conventional: number }>);
   
@@ -114,4 +126,5 @@ export interface EnergyData {
   
     return { labels, renewable, conventional };
   };
+  
   

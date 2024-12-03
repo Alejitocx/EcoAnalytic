@@ -56,11 +56,12 @@ const Dashboard: React.FC = () => {
           const filteredData = filterData(data as EnergyData[], selectedRegion, selectedYear);
           setBarChartData(getProductionDataForBarChart(filteredData));
           setPieChartData(getRenewablesShareForPieChart(filteredData));
-        }
-        const lineData = await getCsvDataForChart('lineChart');
-        setLineChartData(getInstalledCapacityForLineChart(lineData as EnergyData[]));
-        const areaData = await getCsvDataForChart('areaChart');
-        setAreaChartData(getEnergyConsumptionComparisonForAreaChart(areaData as EnergyData[]));
+          const lineData = await getCsvDataForChart('lineChart');
+          setLineChartData(getInstalledCapacityForLineChart(lineData as EnergyData[], selectedRegion));
+  
+          const areaData = await getCsvDataForChart('areaChart');
+          setAreaChartData(getEnergyConsumptionComparisonForAreaChart(areaData as EnergyData[], selectedRegion));
+        }  
       } catch (err: any) {
         setError('Error al actualizar los gráficos.');
       }
@@ -107,7 +108,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div className="charts-section">
-        <h3>Gráficas con filtro por región y año</h3>
+        <h3>Gráficas con filtro por país y año</h3>
         <div className="chart-group">
           <div className="chart-card">
             <Bar
@@ -140,7 +141,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div className="charts-section">
-        <h3>Gráficas de recuento histórico</h3>
+        <h3>Gráficas de recuento histórico por país</h3>
         <div className="chart-group">
           <div className="chart-card">
             <Line

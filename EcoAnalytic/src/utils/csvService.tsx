@@ -1,4 +1,3 @@
-// src/services/dataService.ts
 
 // Define las rutas de los archivos
 const basePath = 'src/data/';
@@ -39,7 +38,7 @@ export async function getCsvData(fileName: string): Promise<any[]> {
     return csvToJson(csvText);
   } catch (error) {
     console.error('Error:', error);
-    return []; // Retorna un array vacío en caso de error
+    return []; 
   }
 }
 

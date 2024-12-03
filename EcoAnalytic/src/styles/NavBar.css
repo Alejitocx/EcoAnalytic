@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(190, 172, 172, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -90,7 +90,7 @@
 /* Diseño responsivo */
 @media (max-width: 768px) {
   .navbar-links {
-    display: none; /* Ocultar por defecto en pantallas pequeñas */
+    display: none; 
   }
   .navbar-toggle {
     display: block;
