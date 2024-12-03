@@ -66,58 +66,52 @@ export interface EnergyData {
   
     return [windEnergy, solarEnergy, hydroEnergy];
   };
+
   
- // Gráfico de líneas (modificado)
- export const getInstalledCapacityForLineChart = (data: EnergyData[]): {
-  labels: string[]; // Regiones
-  wind: number[];
-  solar: number[];
-  geothermal: number[];
-} => {
-  const regions = getUniqueValues(data, 'Entity') as string[];
-
-  const wind = regions.map((region) =>
-    data
-      .filter((item) => item.Entity === region && item['Wind Capacity'])
-      .reduce((sum, item) => sum + toNumber(item['Wind Capacity']), 0)
-  );
-
-  const solar = regions.map((region) =>
-    data
-      .filter((item) => item.Entity === region && item['Solar Capacity'])
-      .reduce((sum, item) => sum + toNumber(item['Solar Capacity']), 0)
-  );
-
-  const geothermal = regions.map((region) =>
-    data
-      .filter((item) => item.Entity === region && item['Geothermal Capacity'])
-      .reduce((sum, item) => sum + toNumber(item['Geothermal Capacity']), 0)
-  );
-
-  return {
-    labels: regions,
-    wind,
-    solar,
-    geothermal,
+  export const getInstalledCapacityForLineChart = (data: EnergyData[]): {
+    labels: number[]; // Años
+    wind: number[];
+    solar: number[];
+    geothermal: number[];
+  } => {
+    const capacityMap = data.reduce((acc, item) => {
+      const year = toNumber(item.Year);
+      if (!acc[year]) {
+        acc[year] = { wind: 0, solar: 0, geothermal: 0 };
+      }
+      if (item['Wind Capacity']) acc[year].wind += toNumber(item['Wind Capacity']);
+      if (item['Solar Capacity']) acc[year].solar += toNumber(item['Solar Capacity']);
+      if (item['Geothermal Capacity']) acc[year].geothermal += toNumber(item['Geothermal Capacity']);
+      return acc;
+    }, {} as Record<number, { wind: number; solar: number; geothermal: number }>);
+  
+    const labels = Object.keys(capacityMap).map((year) => parseInt(year));
+    const wind = labels.map((year) => capacityMap[year].wind);
+    const solar = labels.map((year) => capacityMap[year].solar);
+    const geothermal = labels.map((year) => capacityMap[year].geothermal);
+  
+    return { labels, wind, solar, geothermal };
   };
-};
-
-
-
-// Gráfico de área (modificado)
-export const getEnergyConsumptionComparisonForAreaChart = (data: EnergyData[]): {
-  labels: string[]; // Labels ahora son strings (regiones)
-  renewable: number[];
-  conventional: number[];
-} => {
-  const regions = getUniqueValues(data, 'Entity') as string[];
-  return {
-    labels: regions,
-    renewable: regions.map((region) =>
-      toNumber(data.find((item) => item.Entity === region)?.['Geo Biomass Other - TWh'])
-    ),
-    conventional: regions.map((region) =>
-      toNumber(data.find((item) => item.Entity === region)?.['Conventional Energy Consumption (TWh)'])
-    ),
+  
+  export const getEnergyConsumptionComparisonForAreaChart = (data: EnergyData[]): {
+    labels: number[]; // Años
+    renewable: number[];
+    conventional: number[];
+  } => {
+    const consumptionMap = data.reduce((acc, item) => {
+      const year = toNumber(item.Year);
+      if (!acc[year]) {
+        acc[year] = { renewable: 0, conventional: 0 };
+      }
+      if (item['Geo Biomass Other - TWh']) acc[year].renewable += toNumber(item['Geo Biomass Other - TWh']);
+      if (item['Conventional Energy Consumption (TWh)']) acc[year].conventional += toNumber(item['Conventional Energy Consumption (TWh)']);
+      return acc;
+    }, {} as Record<number, { renewable: number; conventional: number }>);
+  
+    const labels = Object.keys(consumptionMap).map((year) => parseInt(year));
+    const renewable = labels.map((year) => consumptionMap[year].renewable);
+    const conventional = labels.map((year) => consumptionMap[year].conventional);
+  
+    return { labels, renewable, conventional };
   };
-};
+  
