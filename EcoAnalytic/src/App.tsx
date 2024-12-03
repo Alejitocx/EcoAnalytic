@@ -5,6 +5,8 @@ import DatosHistoricos from './pages/DatosHistoricos';
 import Dashboard from './pages/Dashboard';
 import PaginaMain from './pages/PaginaMain';
 import EnergiaE from './pages/Energia';
+import CalculadoraC from './pages/CalculadoraConsumo';
+import PiePagina from './components/PiePagina';
 
 const App: React.FC = () => {
   return (
@@ -17,9 +19,11 @@ const App: React.FC = () => {
         <Route path="/" element={<PaginaMain/> }/>
           <Route path="/energia" element={<EnergiaE />} />
           <Route path="/datos-historicos" element={<DatosHistoricos />} />
+          <Route path="/calculadora" element={<CalculadoraC />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
+      <PiePagina/>
     </Router>
   );
 };

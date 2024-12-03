@@ -1,0 +1,236 @@
+/* .energy-breakdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.source {
+  text-align: center;
+  width: 100px; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+  
+  .source-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .source-icon svg {
+    width: 30px;
+    height: 30px;
+    fill: currentColor;
+  }
+  
+  .source-icon span {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  
+  .source-percentage {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333; 
+  }
+  
+  /* Colores opcionales para cada tipo de energía */
+  
+  /* .source:nth-child(1) .source-icon svg {
+    color: #f2b035; 
+  }
+  .source:nth-child(2) .source-icon svg {
+    color: #87ceeb;
+  }
+  .source:nth-child(3) .source-icon svg {
+    color: #1e90ff;
+  }
+  .source:nth-child(4) .source-icon svg {
+    color: #228b22; 
+  } */ 
+
+  .energy-breakdown {
+    display: flex;
+    flex-direction: column; /* Cambiado a columna */
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .source {
+    text-align: center;
+    width: 80%; /* Ancho ajustado */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .source:first-child { /* Estilos para la primera fuente (Solar) */
+    width: 90%;
+    font-size: 1.2em;
+    background-color: rgba(242, 176, 53, 0.1); /* Color de fondo sutil */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+  }
+  
+  .source:not(:first-child) { /* Estilos para el resto de las fuentes */
+    display: flex; /* Distribución en línea */
+    justify-content: space-around;
+    width: 100%;
+  }
+  
+  
+  .source:not(:first-child) > * {  /* Ajusta el tamaño de los elementos dentro de las fuentes secundarias */
+      flex: 1;                /* Ocupa el espacio disponible */
+      text-align: center;  
+      min-width: 0;         /* Evita que el texto desborde */
+  
+  }
+  
+  
+  .source-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .source-icon svg {
+    width: 40px; /* Iconos ligeramente más grandes */
+    height: 40px;
+    fill: currentColor;
+  }
+  
+  .source:first-child .source-icon svg { /* Icono solar más grande */
+      width: 60px;
+      height: 60px;
+  }
+  
+  
+  .source-icon span {
+    font-size: 16px; /* Texto ligeramente más grande */
+    margin-top: 5px;
+  }
+  
+  .source-percentage {
+    font-size: 24px; /* Porcentaje más grande, especialmente para Solar */
+    font-weight: bold;
+    color: #333;
+  }
+  
+  
+  .source:nth-child(1) .source-icon svg {
+      color: #87ceeb; 
+    }
+    .source:nth-child(2) .source-icon svg {
+      color: #f2b035;
+    }
+    .source:nth-child(3) .source-icon svg {
+      color: #1e90ff;
+    }
+    .source:nth-child(4) .source-icon svg {
+      color: #228b22; 
+    }
+  
+  /* Resto del CSS... (sin cambios) */
+
+
+  .calculator-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f0f0f0; 
+    font-family: sans-serif;
+  }
+  
+  .calculator-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .calculator-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .calculator-title {
+    margin-left: 10px;
+    color: #333;
+  }
+  
+  
+  .calculator-form {
+    margin-bottom: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .input-wrapper {
+    position: relative;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .calculate-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; 
+  }
+  
+  .calculate-button:hover {
+    background-color: #45a049;
+  }
+  
+  
+  .results-container {
+    margin-top: 20px;
+  }
+  
+  .results-summary {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+  }
+  .results-title, .breakdown-title {
+    color: #333;
+  }
+  
+  
+  .result-item {
+    margin-bottom: 10px;
+    color: #666;
+  }

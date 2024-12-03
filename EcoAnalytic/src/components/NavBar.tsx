@@ -22,6 +22,7 @@ const Navbar: React.FC = () => {
         <div className={`navbar-links ${isMobileMenuOpen ? 'open' : ''}`}> {/* <-- AQUÍ ESTA EL CAMBIO */}
           <Link to="/energia" className="navbar-link">Energia Eolica</Link>
           <Link to="/datos-historicos" className="navbar-link">Datos Históricos</Link>
+          <Link to="/calculadora" className="navbar-link">Calculadora</Link>
           <Link to="/dashboard" className="navbar-link">Dashboard</Link>
         </div>
       </div>

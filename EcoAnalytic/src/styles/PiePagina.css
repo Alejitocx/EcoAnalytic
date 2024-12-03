@@ -1,0 +1,90 @@
+/* Contenedor general del footer */
+.footer {
+  background-color: #2f2e2e;
+  color: #fff;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+  text-align: center; /* Centra el contenido dentro del footer */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Contenedor de las secciones */
+.footer-container {
+  display: flex;
+  justify-content: center; /* Centra las columnas horizontalmente */
+  gap: 50px; /* Agrega espacio entre las columnas */
+  max-width: 700px;
+  flex-wrap: wrap; /* Permite que se apilen en pantallas pequeñas */
+}
+
+/* Estilo para cada sección */
+.footer-section {
+  flex: 1;
+  min-width: 250px; /* Asegura buen diseño en móviles */
+  max-width: 300px; /* Limita el ancho máximo de las secciones */
+}
+
+.footer-section h4 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #39832e;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.footer-section p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #b3b3b3;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin: 10px 0;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #39832e;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #fff;
+}
+
+/* Estilo para enlaces de redes sociales */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espacio entre los íconos o enlaces sociales */
+}
+
+.social-links a {
+  text-decoration: none;
+  color: #39832e;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #fff;
+}
+
+/* Sección inferior del footer */
+.footer-bottom {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: #b3b3b3;
+  text-align: center;
+  border-top: 1px solid #333;
+  padding-top: 15px;
+  width: 100%;
+}
