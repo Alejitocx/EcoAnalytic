@@ -4,6 +4,7 @@ import Navbar from './components/NavBar';
 import DatosHistoricos from './pages/DatosHistoricos';
 import Dashboard from './pages/Dashboard';
 import PaginaMain from './pages/PaginaMain';
+import PiePagina from './components/PiePagina';
 import EnergiaE from './pages/Energia';
 
 const App: React.FC = () => {
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
+     <PiePagina/>
     </Router>
   );
 };
