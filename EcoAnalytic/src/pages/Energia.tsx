@@ -38,7 +38,9 @@ const EnergiaE: React.FC = () => {
       img: img3,
       title: 'Tecnología de los Aerogeneradores',
       summary: 'Conoce cómo funcionan los aerogeneradores.',
+
       details: <p>Los aerogeneradores convierten la energía cinética del viento en energía mecánica a través de las palas que giran cuando el viento las impulsa. Esta energía mecánica se transmite al generador, donde se convierte en electricidad. Existen diferentes tipos de aerogeneradores, tanto terrestres como marinos, dependiendo del lugar de instalación y la cantidad de viento disponible.</p>,
+
     },
   ];
 
@@ -71,7 +73,9 @@ const EnergiaE: React.FC = () => {
        
       
         <div className='texto'>
+
         <p>La energía eólica se ha consolidado como un pilar fundamental en la transición hacia un modelo energético más sostenible y respetuoso con el medio ambiente. Esta fuente de energía renovable, que aprovecha la fuerza del viento para generar electricidad, ofrece numerosas ventajas que la posicionan como una solución clave para enfrentar los desafíos energéticos y climáticos actuales.<br></br>
+
         En primer lugar, la energía eólica destaca por su carácter limpio e inagotable. Al no requerir procesos de combustión, contribuye significativamente a la reducción de emisiones de gases de efecto invernadero, ayudando así a combatir el cambio climático.<br></br>
          Además, el viento es un recurso ilimitado, lo que garantiza una fuente de energía a largo plazo y reduce la dependencia de combustibles fósiles</p>
          </div>
