@@ -74,6 +74,8 @@ table {
     border-collapse: collapse;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    border: 2px solid #39832e; 
+    ; /* Añade un borde verde */
 }
   
 th, td {
