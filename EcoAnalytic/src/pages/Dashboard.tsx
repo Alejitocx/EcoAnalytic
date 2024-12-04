@@ -153,6 +153,22 @@ const Dashboard: React.FC = () => {
                   { label: 'Capacidad Geotérmica', data: lineChartData.geothermal, borderColor: '#FF6384', fill: false },
                 ],
               }}
+              options={{
+                scales: {
+                  x: {
+                    title: {
+                      display: true,
+                      text: "Años",
+                    },
+                  },
+                  y: {
+                    title: {
+                      display: true,
+                      text: "Consumo de Energía",
+                    },
+                  },
+                },
+              }}
             />
           </div>
           <div className="chart-card">
